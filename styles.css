@@ -8,9 +8,16 @@
     --text: #6e7753;
     --text-light: #6e7753;
     --bg-dark: #dacabb;
-    
-    --font-titulos: 'Cinzel', serif; /* Tipografía mágica/elegante */
-    --font-textos: 'Montserrat', sans-serif; /* Tipografía limpia para lectura */
+
+    --font-titulos: 'Cinzel', serif;
+    --font-textos: 'Montserrat', sans-serif;
+
+    /* Marco doble desfasado */
+    --marco-color:   #e8b730;        /* dorado del marco          */
+    --marco-grosor:  1px;            /* grosor de cada línea      */
+    --marco-desfase: 8px;            /* separación entre ambas    */
+    --marco-padding: 28px;           /* espacio entre marco y contenido */
+    --marco-radio:   2px;            /* redondeo sutil de esquinas */
 }
 
 /* ==========================================================================
@@ -105,6 +112,93 @@ h3 {
     color: rgba(30, 30, 30, 0.7); /* negro sutil */
     font-size: 1.1rem;
     letter-spacing: 5px;
+}
+
+/* ==========================================================================
+   GIF DE SECCIÓN
+   ========================================================================== */
+.seccion-gif {
+    display: block;
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    margin: 0 auto 0.75rem;
+    /* Evita que el navegador recalcule layout en cada frame */
+    will-change: auto;
+    /* Redondeado sutil opcional */
+    border-radius: 4px;
+}
+
+/* En cards (detalle-card) el gif queda centrado dentro */
+.detalle-card .seccion-gif {
+    margin-bottom: 0.6rem;
+}
+
+/* ==========================================================================
+   MARCO DOBLE DESFASADO (Mobile First)
+   ========================================================================== */
+
+/*
+  Estructura visual:
+  ::before → borde exterior (pegado al borde del contenedor)
+  ::after  → borde interior (retraído --marco-desfase px hacia adentro)
+  Ambos son inset absolutos que crecen con el contenido.
+*/
+
+.marco-contenedor {
+    position: relative;
+
+    /* Padding generoso para que el contenido no tape los bordes.
+       Mínimo necesario: --marco-desfase + --marco-padding           */
+    padding: calc(var(--marco-desfase) + var(--marco-padding))
+             calc(var(--marco-desfase) + var(--marco-padding));
+
+    /* Margen exterior para que el marco no toque los bordes del viewport
+       en pantallas muy estrechas                                     */
+    margin: 1.5rem 1rem;
+
+    /* El contenedor no tiene borde propio — los marcos son pseudo-elementos */
+}
+
+/* ---- Borde exterior (::before) ---- */
+.marco-contenedor::before {
+    content: '';
+    position: absolute;
+    inset: 0;                           /* cubre todo el contenedor  */
+    border: var(--marco-grosor) solid var(--marco-color);
+    border-radius: var(--marco-radio);
+    pointer-events: none;
+}
+
+/* ---- Borde interior desfasado (::after) ---- */
+.marco-contenedor::after {
+    content: '';
+    position: absolute;
+    inset: var(--marco-desfase);        /* retrocede --marco-desfase en cada lado */
+    border: var(--marco-grosor) solid var(--marco-color);
+    border-radius: var(--marco-radio);
+    pointer-events: none;
+}
+
+/* En pantallas más anchas, aumentamos el margen lateral del contenedor */
+@media (min-width: 480px) {
+    .marco-contenedor {
+        margin: 2rem 1.5rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .marco-contenedor {
+        margin: 2.5rem 2.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .marco-contenedor {
+        max-width: 960px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 
 /* ==========================================================================
@@ -313,7 +407,12 @@ footer {
    ========================================================================== */
 .carrusel-section {
     background: #c9b8a8;
+    /* Respeta el padding lateral del marco */
     padding: 4rem 0;
+    /* Compensa negativamente el padding lateral del marco-contenedor
+       para que el fondo del carrusel llegue de borde a borde interno */
+    margin-left:  calc(-1 * (var(--marco-desfase) + var(--marco-padding)));
+    margin-right: calc(-1 * (var(--marco-desfase) + var(--marco-padding)));
 }
 
 .carrusel-section h3 {
