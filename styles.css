@@ -2,11 +2,15 @@
    VARIABLES DE COLOR Y FUENTES (Tema: Bosque Encantado)
    ========================================================================== */
 :root {
-    --dusty-rose: #DCA1A1;
-    --golden: #f0dc82;
+    /* F-02: roles de color bien definidos */
+    --dusty-rose: #c9807a;           /* titulación — más rico y legible   */
+    --golden-deco: #e8b730;          /* decoración únicamente (marco)     */
+    --golden-cta:  #c8860a;          /* botones + interacción             */
+    --golden: #c8860a;               /* alias para compatibilidad         */
     --bg: #dacabb;
-    --text: #6e7753;
-    --text-light: #6e7753;
+    /* F-01: texto con ratio WCAG AA sobre --bg */
+    --text: #4a5230;
+    --text-light: #4a5230;
     --bg-dark: #dacabb;
 
     --font-titulos: 'Cinzel', serif;
@@ -265,9 +269,12 @@ section {
     border-top: 3px solid var(--dusty-rose);
 }
 
+/* F-07: h4 diferenciado de h3 por tamaño + uppercase */
 .detalle-card h4 {
     color: var(--dusty-rose);
-    font-size: 1.5rem;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
     margin-bottom: 1rem;
 }
 
@@ -290,6 +297,13 @@ section {
 .btn-primario:hover {
     transform: scale(1.05);
     opacity: 0.85;
+}
+
+/* F-08: foco visible accesible (solo teclado, no mouse/touch) */
+.btn-primario:focus-visible,
+.btn-secundario:focus-visible {
+    outline: 2px solid var(--golden-cta);
+    outline-offset: 3px;
 }
 
 .btn-secundario {
@@ -368,6 +382,11 @@ footer {
     border-top: 1px solid rgba(220, 161, 161, 0.3);
 }
 
+/* F-03: separador sutil entre secciones dentro del marco */
+section + section {
+    border-top: 1px solid rgba(232, 183, 48, 0.2);
+}
+
 /* ==========================================================================
    MEDIA QUERIES (Desktop)
    ========================================================================== */
@@ -393,6 +412,12 @@ footer {
     .hero-content h2 {
         font-size: 1.8rem;
     }
+
+    /* F-05: GIFs dentro de cards en desktop */
+    .detalle-card .seccion-gif {
+        width: 56px;
+        height: 56px;
+    }
 }
 
 /* ==========================================================================
@@ -415,8 +440,22 @@ footer {
     margin-right: calc(-1 * (var(--marco-desfase) + var(--marco-padding)));
 }
 
+/* F-06: decoración del título "Momentos" con líneas CSS, sin guiones en HTML */
 .carrusel-section h3 {
-    color: rgba(30, 30, 30, 0.7); /* negro sutil */
+    color: rgba(30, 30, 30, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0 1.5rem;
+}
+
+.carrusel-section h3::before,
+.carrusel-section h3::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(232, 183, 48, 0.45);
 }
 
 .carrusel-wrapper {
