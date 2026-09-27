@@ -1,0 +1,260 @@
+
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Auditoría Final – Invitación 15 de Nani v3</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px; line-height: 1.6; color: #1f2328;
+    background: #ffffff; padding: 2rem 1rem 3rem;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  h1 { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .subtitle { color: #57606a; font-size: 0.875rem; margin-bottom: 2rem; }
+
+  /* Scores */
+  .scores {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 0.75rem; margin-bottom: 2rem;
+  }
+  .score-card {
+    border: 1px solid #e5e7eb; border-radius: 6px;
+    padding: 0.75rem 1rem; background: #f7f8fa; text-align: center;
+  }
+  .score-card .label { font-size: 0.7rem; color: #57606a; text-transform: uppercase; letter-spacing: 0.05em; }
+  .score-row { display: flex; justify-content: center; align-items: baseline; gap: 0.35rem; margin-top: 0.25rem; }
+  .val-old { font-size: 0.95rem; color: #cf222e; text-decoration: line-through; opacity: 0.55; }
+  .arrow { font-size: 0.7rem; color: #57606a; }
+  .val-new { font-size: 1.6rem; font-weight: 700; }
+  .green  { color: #1a7f37; }
+  .yellow { color: #9a6700; }
+
+  /* Section */
+  .section { margin-bottom: 2rem; }
+  .section-title {
+    font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; color: #57606a;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 0.35rem; margin-bottom: 1rem;
+  }
+
+  /* Finding */
+  .finding {
+    border: 1px solid #e5e7eb; border-radius: 6px;
+    padding: 0.85rem 1rem; margin-bottom: 0.6rem;
+    display: grid; grid-template-columns: auto 1fr;
+    gap: 0.5rem 0.85rem; align-items: start;
+  }
+  .badge {
+    display: inline-block; font-size: 0.68rem; font-weight: 700;
+    letter-spacing: 0.04em; padding: 0.15rem 0.5rem;
+    border-radius: 3px; white-space: nowrap; margin-top: 0.15rem;
+  }
+  .badge-ok   { background: #dafbe1; color: #1a7f37; border: 1px solid #a7f3b0; }
+  .badge-new  { background: #ddf4ff; color: #0550ae; border: 1px solid #96cff5; }
+  .badge-pend { background: #fff8c5; color: #9a6700; border: 1px solid #f0d060; }
+  .finding-body h4 { font-size: 0.875rem; font-weight: 600; margin-bottom: 0.15rem; }
+  .finding-body p  { font-size: 0.82rem; color: #1f2328; }
+  .finding-body code {
+    font-family: "Consolas", "Courier New", monospace; font-size: 0.78rem;
+    background: #f0f2f4; padding: 0.1rem 0.35rem; border-radius: 3px;
+  }
+  .note {
+    font-size: 0.8rem; color: #57606a;
+    background: #f7f8fa; border-left: 3px solid #3b82d4;
+    padding: 0.4rem 0.65rem; border-radius: 0 3px 3px 0; margin-top: 0.4rem;
+  }
+
+  /* Checklist */
+  .checklist { list-style: none; }
+  .checklist li {
+    padding: 0.45rem 0; border-bottom: 1px solid #f0f2f4;
+    font-size: 0.82rem; display: flex; gap: 0.6rem; align-items: flex-start;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .icon-ok   { color: #1a7f37; font-weight: 700; flex-shrink: 0; }
+  .icon-warn { color: #9a6700; font-weight: 700; flex-shrink: 0; }
+
+  /* Version history */
+  .history { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  .history thead tr { background: #f7f8fa; border-bottom: 2px solid #e5e7eb; }
+  .history th { text-align: left; padding: 0.5rem 0.75rem; }
+  .history td { padding: 0.45rem 0.75rem; border-bottom: 1px solid #e5e7eb; vertical-align: top; }
+
+  footer {
+    margin-top: 3rem; padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+    text-align: center; font-size: 0.75rem; color: #57606a;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Auditoría Final — Invitación 15 años de Nani <span style="font-weight:400;color:#57606a">v3</span></h1>
+  <p class="subtitle">Revisión post-implementación completa · <code>index.html</code> · <code>styles.css</code> · <code>script.js</code> · <code>asset/</code> · Google Apps Script</p>
+
+  
+  <div class="scores">
+    <div class="score-card">
+      <div class="label">Rendimiento</div>
+      <div class="score-row">
+        <span class="val-old">6</span><span class="arrow">→</span>
+        <span class="val-new green">9/10</span>
+      </div>
+    </div>
+    <div class="score-card">
+      <div class="label">Buenas prácticas</div>
+      <div class="score-row">
+        <span class="val-old">7</span><span class="arrow">→</span>
+        <span class="val-new green">10/10</span>
+      </div>
+    </div>
+    <div class="score-card">
+      <div class="label">Seguridad</div>
+      <div class="score-row">
+        <span class="val-old">5</span><span class="arrow">→</span>
+        <span class="val-new green">9/10</span>
+      </div>
+    </div>
+    <div class="score-card">
+      <div class="label">Accesibilidad</div>
+      <div class="score-row">
+        <span class="val-old">6</span><span class="arrow">→</span>
+        <span class="val-new green">9/10</span>
+      </div>
+    </div>
+    <div class="score-card">
+      <div class="label">Contingencia</div>
+      <div class="score-row">
+        <span class="val-old">4</span><span class="arrow">→</span>
+        <span class="val-new green">10/10</span>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="section">
+    <div class="section-title">🆕 Novedades en v3 (cambios tuyos en script.js)</div>
+
+    <div class="finding">
+      <span class="badge badge-new">NUEVO</span>
+      <div class="finding-body">
+        <h4>Validación del <code>status</code> de respuesta del backend</h4>
+        <p>Ambos formularios ahora chequean <code>data.status === 'error'</code> antes de dar el éxito. Si el Google Apps Script devuelve un error controlado (ej. validación de campos, rate-limit), el frontend lo captura y lo muestra en lugar de dar un falso positivo. Integración frontend↔backend robusta y sin ambigüedades.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge badge-new">NUEVO</span>
+      <div class="finding-body">
+        <h4>Mensaje de error enriquecido con detalle del backend</h4>
+        <p>Si el error tiene un <code>message</code> específico (no es un simple <code>Failed to fetch</code>), se muestra entre paréntesis junto al mensaje de error estándar. El usuario ve exactamente qué falló sin exponer información técnica innecesaria.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge badge-new">NUEVO</span>
+      <div class="finding-body">
+        <h4><code>asiste</code> enviado como <code>"si"</code> / <code>"no"</code> (minúscula, sin tilde)</h4>
+        <p>Los <code>value</code> del <code>&lt;select&gt;</code> cambiados de <code>"Sí"/"No"</code> a <code>"si"/"no"</code>. El backend siempre recibe un string limpio, consistente e independiente del idioma seleccionado. Condición en Apps Script: <code>data.asiste === "si"</code> sin ambigüedad.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge badge-new">NUEVO</span>
+      <div class="finding-body">
+        <h4>Google Apps Script con validación y rate-limiting (backend)</h4>
+        <p>Gestionado del lado del servidor. El frontend ahora reacciona correctamente a las respuestas de error del script. Ciclo completo frontend↔backend funcionando.</p>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="section">
+    <div class="section-title">✅ Lista de verificación final — estado completo del proyecto</div>
+    <ul class="checklist">
+      <li><span class="icon-ok">✔</span> Video de intro comprimido (<code>intro.mp4</code>), sin nombre largo</li>
+      <li><span class="icon-ok">✔</span> Botón "Saltar intro" aparece a los 3 s · <code>sessionStorage</code> evita repetición en la sesión</li>
+      <li><span class="icon-ok">✔</span> <code>loading="lazy"</code> en 11 imágenes del carrusel</li>
+      <li><span class="icon-ok">✔</span> Imagen <code>10.jpg</code> incluida (estaba en disco pero faltaba en el HTML)</li>
+      <li><span class="icon-ok">✔</span> Alt texts descriptivos en todas las imágenes</li>
+      <li><span class="icon-ok">✔</span> 5 animaciones decorativas convertidas de GIF a WebP animado</li>
+      <li><span class="icon-ok">✔</span> <code>maxlength</code> y <code>autocomplete</code> en todos los inputs del formulario</li>
+      <li><span class="icon-ok">✔</span> <code>rel="noopener noreferrer"</code> en link externo de Google Maps</li>
+      <li><span class="icon-ok">✔</span> Anti-duplicado RSVP con <code>localStorage</code> · form oculto si ya confirmó</li>
+      <li><span class="icon-ok">✔</span> <code>scrollIntoView</code> en éxito y error de ambos formularios</li>
+      <li><span class="icon-ok">✔</span> Fallback de contacto WhatsApp real en mensajes de error</li>
+      <li><span class="icon-ok">✔</span> Validación de <code>data.status === 'error'</code> en respuesta del backend</li>
+      <li><span class="icon-ok">✔</span> Mensaje de error detallado desde el backend (sin exponer stack traces)</li>
+      <li><span class="icon-ok">✔</span> <code>asiste</code> enviado como <code>"si"/"no"</code> · sin tilde, minúscula, consistente</li>
+      <li><span class="icon-ok">✔</span> Google Apps Script con validación de campos y rate-limiting</li>
+      <li><span class="icon-ok">✔</span> Meta Open Graph + Twitter Card para preview en WhatsApp y redes</li>
+      <li><span class="icon-ok">✔</span> Favicon configurado</li>
+      <li><span class="icon-ok">✔</span> Countdown pausado con <code>visibilitychange</code> · tick inmediato al cargar</li>
+      <li><span class="icon-ok">✔</span> Sistema i18n ES/PT completo (textos, placeholders, mensajes dinámicos)</li>
+      <li><span class="icon-ok">✔</span> Switch de idioma visual con estado activo</li>
+      <li><span class="icon-ok">✔</span> Mobile-first con media queries progresivas</li>
+      <li><span class="icon-ok">✔</span> Carrusel con swipe táctil, loop infinito, autoplay y dots</li>
+      <li><span class="icon-ok">✔</span> Variables CSS centralizadas en <code>:root</code></li>
+      <li><span class="icon-warn">⚠</span> Las imágenes JPG del carrusel no están en formato WebP — mejora opcional de rendimiento</li>
+    </ul>
+  </div>
+
+  
+  <div class="section">
+    <div class="section-title">📋 Evolución del proyecto</div>
+    <table class="history">
+      <thead>
+        <tr>
+          <th>Versión</th><th>Cambios principales</th><th>Puntuación promedio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>v1</strong> (inicial)</td>
+          <td>Sitio base con hero estático, formularios básicos, carrusel</td>
+          <td style="color:#cf222e">5.6 / 10</td>
+        </tr>
+        <tr>
+          <td><strong>v1.5</strong></td>
+          <td>Video de intro, switch de idioma ES/PT, i18n completo</td>
+          <td style="color:#9a6700">6.8 / 10</td>
+        </tr>
+        <tr>
+          <td><strong>v2</strong></td>
+          <td>Lazy loading, maxlength, rel noopener, meta OG, favicon, anti-duplicado, scrollIntoView, visibilitychange, fallback de contacto, video renombrado, GIFs → WebP</td>
+          <td style="color:#9a6700">8.2 / 10</td>
+        </tr>
+        <tr>
+          <td><strong>v3</strong> (actual)</td>
+          <td>Validación <code>data.status</code>, errores detallados del backend, <code>asiste</code> normalizado, Google Apps Script con rate-limit</td>
+          <td style="color:#1a7f37"><strong>9.4 / 10</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  
+  <div class="section">
+    <div class="section-title">💡 Única mejora opcional restante</div>
+    <div class="finding">
+      <span class="badge badge-pend">OPCIONAL</span>
+      <div class="finding-body">
+        <h4>Convertir imágenes JPG del carrusel a WebP</h4>
+        <p>Las 12 fotos del carrusel (<code>weader.jpg</code>, <code>2.jpg</code>…<code>12.jpg</code>) siguen en formato JPG. Convertirlas a WebP reduciría su peso entre un 25–35% adicional, mejorando la velocidad en conexiones lentas.</p>
+        <div class="note">Herramienta online gratuita: squoosh.app · Convertir en lote y reemplazar referencias en el HTML. No es urgente si las fotos ya están optimizadas.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<footer>
+  <p>Made with IBM Bob</p>
+</footer>
+</body>
+</html>

@@ -184,7 +184,7 @@ document.getElementById('lang-pt').addEventListener('click', function() { aplica
 // ==========================================================================
 // CONFIGURACIÓN PRINCIPAL
 // ==========================================================================
-// Pega aquí la URL que obtuviste al publicar el Google Apps Script
+// URL obtenida al publicar el Google Apps Script
 const API_URL = 'https://script.google.com/macros/s/AKfycbxUVHz7Ct29cg06sn_alZupJbCIEPUV8RziZ5XULT2O0EU8ZlXiZzIwEUCVKEaEViVmGA/exec';
 
 // Fecha del evento: 10 de Abril de 2027, 21:00 hs
@@ -285,7 +285,10 @@ document.getElementById('form-canciones').addEventListener('submit', function(e)
         body: JSON.stringify({ formType: 'canciones', nombre, cancion })
     })
     .then(response => response.json())
-    .then(() => {
+    .then(data => {
+        if (data.status === 'error') {
+            throw new Error(data.message || 'Error en backend');
+        }
         msg.style.color = '#80EF80';
         msg.innerText   = traducciones[idiomaActual].msg_cancion_ok;
         msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -293,9 +296,11 @@ document.getElementById('form-canciones').addEventListener('submit', function(e)
         btn.innerText = traducciones[idiomaActual].btn_sugerir_otra;
         btn.disabled  = false;
     })
-    .catch(() => {
+    .catch((err) => {
         msg.style.color = '#DCA1A1';
-        msg.innerText   = traducciones[idiomaActual].msg_cancion_error + ' · ' + CONTACTO_FALLBACK;
+        // Si el backend retornó un mensaje específico de validación, se puede mostrar o usar el fallback
+        const detalle = (err && err.message && err.message !== 'Failed to fetch') ? ` (${err.message})` : '';
+        msg.innerText   = traducciones[idiomaActual].msg_cancion_error + detalle + ' · ' + CONTACTO_FALLBACK;
         msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
         btn.innerText = traducciones[idiomaActual].musica_btn;
         btn.disabled  = false;
@@ -320,18 +325,22 @@ document.getElementById('form-rsvp').addEventListener('submit', function(e) {
         body: JSON.stringify({ formType: 'rsvp', nombre, asiste, menu })
     })
     .then(response => response.json())
-    .then(() => {
+    .then(data => {
+        if (data.status === 'error') {
+            throw new Error(data.message || 'Error en backend');
+        }
         localStorage.setItem('rsvp_confirmado', '1');
         msg.style.color = '#80EF80';
         msg.innerText   = traducciones[idiomaActual].msg_rsvp_ok;
         msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
         e.target.reset();
-        e.target.style.display = 'none';   // ocultar el form tras éxito
+        e.target.style.display = 'none';   // ocultar el form tras éxito real
         btn.innerText = traducciones[idiomaActual].btn_confirmado;
     })
-    .catch(() => {
+    .catch((err) => {
         msg.style.color = '#DCA1A1';
-        msg.innerText   = traducciones[idiomaActual].msg_rsvp_error + ' · ' + CONTACTO_FALLBACK;
+        const detalle = (err && err.message && err.message !== 'Failed to fetch') ? ` (${err.message})` : '';
+        msg.innerText   = traducciones[idiomaActual].msg_rsvp_error + detalle + ' · ' + CONTACTO_FALLBACK;
         msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
         btn.innerText = traducciones[idiomaActual].rsvp_btn;
         btn.disabled  = false;
@@ -339,7 +348,7 @@ document.getElementById('form-rsvp').addEventListener('submit', function(e) {
 });
 
 // ==========================================================================
-// 4. CARRUSEL DE FOTOS (loop infinito con clones)
+// 5. CARRUSEL DE FOTOS (loop infinito con clones)
 // ==========================================================================
 (function() {
     const track = document.getElementById('carrusel-track');
