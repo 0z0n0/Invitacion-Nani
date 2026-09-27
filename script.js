@@ -8,12 +8,6 @@
 
     if (!introScreen || !introVideo) return;
 
-    // Si ya se vio en esta sesión, saltar directo
-    if (sessionStorage.getItem('intro_vista')) {
-        introScreen.remove();
-        return;
-    }
-
     // Bloquear scroll mientras dura la intro
     document.body.style.overflow = 'hidden';
 
@@ -21,7 +15,6 @@
     function terminarIntro() {
         if (introTerminada) return;
         introTerminada = true;
-        sessionStorage.setItem('intro_vista', '1');
         introScreen.classList.add('fade-out');
         document.body.style.overflow = '';
         introScreen.addEventListener('transitionend', function () {
