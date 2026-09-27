@@ -1,4 +1,170 @@
 // ==========================================================================
+// 0. INTRO: VIDEO DE APERTURA
+// ==========================================================================
+(function () {
+    const introScreen = document.getElementById('intro-screen');
+    const introVideo  = document.getElementById('intro-video');
+
+    if (!introScreen || !introVideo) return;
+
+    // Bloquear scroll mientras dura la intro
+    document.body.style.overflow = 'hidden';
+
+    function terminarIntro() {
+        introScreen.classList.add('fade-out');
+        document.body.style.overflow = '';
+        // Eliminar el nodo del DOM al terminar el fade
+        introScreen.addEventListener('transitionend', function () {
+            introScreen.remove();
+        }, { once: true });
+    }
+
+    // Caso 1: el video termina normalmente
+    introVideo.addEventListener('ended', terminarIntro);
+
+    // Caso 2: el video no pudo cargarse / reproducirse (fallback: 8 s)
+    introVideo.addEventListener('error', function () {
+        setTimeout(terminarIntro, 500);
+    });
+
+    // Caso 3: timeout de seguridad por si el evento 'ended' no llega
+    introVideo.addEventListener('loadedmetadata', function () {
+        var duracion = introVideo.duration;
+        if (isFinite(duracion) && duracion > 0) {
+            setTimeout(terminarIntro, (duracion + 1) * 1000);
+        }
+    });
+})();
+
+
+// ==========================================================================
+// 1. SISTEMA DE IDIOMAS (i18n)
+// ==========================================================================
+const traducciones = {
+    es: {
+        countdown_title:  'Falta muy poco...',
+        dias:             'Días',
+        horas:            'Hs',
+        minutos:          'Min',
+        segundos:         'Seg',
+        rsvp_title:       'Confirmar Asistencia',
+        rsvp_deadline:    'Por favor, confirmá antes del 10/02/2027',
+        rsvp_nombre_ph:   'Nombre y Apellido',
+        rsvp_asiste_label:'¿Asistís?',
+        rsvp_si:          'Sí, confirmo',
+        rsvp_no:          'No podré asistir',
+        rsvp_menu_ph:     "Menú especial (Celíaco, Vegano, etc.) o 'Ninguno'",
+        rsvp_btn:         'Confirmar',
+        fiesta_title:     'La Fiesta',
+        fiesta_fecha_label:'Fecha:',
+        fiesta_fecha_val: 'Sábado 10 de Abril de 2027',
+        fiesta_hora_label:'Horario:',
+        fiesta_hora_val:  '21:00 hs a 04:00 hs',
+        fiesta_lugar_label:'Lugar:',
+        fiesta_lugar_val: 'El Campito del Abuelo, Ibarlucea, Santa Fe',
+        fiesta_mapa:      'Ver en Google Maps',
+        dress_title:      'Dress Code',
+        dress_ellas:      'Ellas: Vestido.',
+        dress_ellos:      'Ellos: Camisa y pantalón.',
+        dress_prohibidos: 'Colores Prohibidos: Bordo, Rosa, Dorado.',
+        regalos_title:    'Regalos',
+        regalos_texto:    'Tu presencia es mi mejor regalo, pero si deseas colaborar:',
+        musica_title:     'Música',
+        musica_texto:     '¿Qué canción no puede faltar?',
+        musica_nombre_ph: 'Tu Nombre',
+        musica_tema_ph:   'Canción y Artista',
+        musica_btn:       'Sugerir Canción',
+        momentos_title:   'Momentos',
+        footer_texto:     '¡Te espero para celebrar juntos!',
+        // mensajes dinámicos de formularios
+        msg_rsvp_ok:      '¡Gracias por confirmar!',
+        msg_rsvp_error:   'Hubo un error de conexión. Intenta más tarde.',
+        msg_rsvp_limite:  'Fecha límite alcanzada',
+        msg_cancion_ok:   '¡Canción sugerida con éxito!',
+        msg_cancion_error:'Hubo un error. Intenta nuevamente.',
+        btn_enviando:     'Enviando...',
+        btn_confirmando:  'Confirmando...',
+        btn_confirmado:   'Confirmado',
+        btn_sugerir_otra: 'Sugerir otra',
+    },
+    pt: {
+        countdown_title:  'Falta muito pouco...',
+        dias:             'Dias',
+        horas:            'Hrs',
+        minutos:          'Min',
+        segundos:         'Seg',
+        rsvp_title:       'Confirmar Presença',
+        rsvp_deadline:    'Por favor, confirme até de 10/02/2027',
+        rsvp_nombre_ph:   'Nome completo',
+        rsvp_asiste_label:'Você vai?',
+        rsvp_si:          'Sim, eu vou',
+        rsvp_no:          'Não poderei ir',
+        rsvp_menu_ph:     "Menu especial (Celíaco, Vegano, etc.) ou 'Nenhum'",
+        rsvp_btn:         'Confirmar',
+        fiesta_title:     'A Festa',
+        fiesta_fecha_label:'Data:',
+        fiesta_fecha_val: 'Sábado, 10 de Abril de 2027',
+        fiesta_hora_label:'Horário:',
+        fiesta_hora_val:  '21:00h às 04:00h',
+        fiesta_lugar_label:'Local:',
+        fiesta_lugar_val: 'El Campito del Abuelo, Ibarlucea, Santa Fe',
+        fiesta_mapa:      'Ver no Google Maps',
+        dress_title:      'Dress Code',
+        dress_ellas:      'Elas: Vestido.',
+        dress_ellos:      'Eles: Camisa e calça social.',
+        dress_prohibidos: 'Cores Proibidas: Bordô, Rosa, Dourado.',
+        regalos_title:    'Presentes',
+        regalos_texto:    'Sua presença é meu melhor presente, mas se desejar colaborar:',
+        musica_title:     'Música',
+        musica_texto:     'Qual música não pode faltar?',
+        musica_nombre_ph: 'Seu Nome',
+        musica_tema_ph:   'Música e Artista',
+        musica_btn:       'Sugerir Música',
+        momentos_title:   'Momentos',
+        footer_texto:     'Espero por você para celebrarmos juntos!',
+        // mensajes dinámicos de formularios
+        msg_rsvp_ok:      'Obrigada por confirmar!',
+        msg_rsvp_error:   'Houve um erro de conexão. Tente mais tarde.',
+        msg_rsvp_limite:  'Prazo encerrado',
+        msg_cancion_ok:   'Música sugerida com sucesso!',
+        msg_cancion_error:'Houve um erro. Tente novamente.',
+        btn_enviando:     'Enviando...',
+        btn_confirmando:  'Confirmando...',
+        btn_confirmado:   'Confirmado',
+        btn_sugerir_otra: 'Sugerir outra',
+    }
+};
+
+var idiomaActual = 'es';
+
+function aplicarIdioma(lang) {
+    idiomaActual = lang;
+    var t = traducciones[lang];
+
+    // Textos normales
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        var clave = el.getAttribute('data-i18n');
+        if (t[clave] !== undefined) el.textContent = t[clave];
+    });
+
+    // Placeholders
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+        var clave = el.getAttribute('data-i18n-placeholder');
+        if (t[clave] !== undefined) el.placeholder = t[clave];
+    });
+
+    // Botones activos del switch
+    document.getElementById('lang-es').classList.toggle('lang-active', lang === 'es');
+    document.getElementById('lang-pt').classList.toggle('lang-active', lang === 'pt');
+
+    // Atributo lang del documento
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'es';
+}
+
+document.getElementById('lang-es').addEventListener('click', function() { aplicarIdioma('es'); });
+document.getElementById('lang-pt').addEventListener('click', function() { aplicarIdioma('pt'); });
+
+// ==========================================================================
 // CONFIGURACIÓN PRINCIPAL
 // ==========================================================================
 // Pega aquí la URL que obtuviste al publicar el Google Apps Script
@@ -42,9 +208,9 @@ function chequearFechaLimite() {
     if (ahora > fechaLimiteRSVP) {
         const btnRSVP = document.getElementById('btn-rsvp');
         btnRSVP.disabled = true;
-        btnRSVP.style.backgroundColor = '#555'; // Estilo apagado
-        btnRSVP.innerText = 'Fecha límite alcanzada';
-        
+        btnRSVP.style.backgroundColor = '#555';
+        btnRSVP.innerText = traducciones[idiomaActual].msg_rsvp_limite;
+
         const inputs = document.querySelectorAll('#form-rsvp input, #form-rsvp select');
         inputs.forEach(input => input.disabled = true);
     }
@@ -64,7 +230,7 @@ document.getElementById('form-canciones').addEventListener('submit', function(e)
     const nombre = document.getElementById('cancion-nombre').value;
     const cancion = document.getElementById('cancion-tema').value;
 
-    btn.innerText = 'Enviando...';
+    btn.innerText = traducciones[idiomaActual].btn_enviando;
     btn.disabled = true;
 
     const data = {
@@ -79,16 +245,16 @@ document.getElementById('form-canciones').addEventListener('submit', function(e)
     })
     .then(response => response.json())
     .then(data => {
-        msg.style.color = '#80EF80'; // Pastel green
-        msg.innerText = '¡Canción sugerida con éxito!';
+        msg.style.color = '#80EF80';
+        msg.innerText = traducciones[idiomaActual].msg_cancion_ok;
         e.target.reset();
-        btn.innerText = 'Sugerir otra';
+        btn.innerText = traducciones[idiomaActual].btn_sugerir_otra;
         btn.disabled = false;
     })
     .catch(error => {
-        msg.style.color = '#DCA1A1'; // Dusty rose
-        msg.innerText = 'Hubo un error. Intenta nuevamente.';
-        btn.innerText = 'Sugerir Canción';
+        msg.style.color = '#DCA1A1';
+        msg.innerText = traducciones[idiomaActual].msg_cancion_error;
+        btn.innerText = traducciones[idiomaActual].musica_btn;
         btn.disabled = false;
     });
 });
@@ -103,7 +269,7 @@ document.getElementById('form-rsvp').addEventListener('submit', function(e) {
     const asiste = document.getElementById('rsvp-asiste').value;
     const menu = document.getElementById('rsvp-menu').value || 'Ninguno';
 
-    btn.innerText = 'Confirmando...';
+    btn.innerText = traducciones[idiomaActual].btn_confirmando;
     btn.disabled = true;
 
     const data = {
@@ -120,15 +286,15 @@ document.getElementById('form-rsvp').addEventListener('submit', function(e) {
     .then(response => response.json())
     .then(data => {
         msg.style.color = '#80EF80';
-        msg.innerText = '¡Gracias por confirmar!';
+        msg.innerText = traducciones[idiomaActual].msg_rsvp_ok;
         e.target.reset();
-        btn.innerText = 'Confirmado';
+        btn.innerText = traducciones[idiomaActual].btn_confirmado;
         // Lo dejamos deshabilitado para evitar envíos duplicados por error
     })
     .catch(error => {
         msg.style.color = '#DCA1A1';
-        msg.innerText = 'Hubo un error de conexión. Intenta más tarde.';
-        btn.innerText = 'Confirmar';
+        msg.innerText = traducciones[idiomaActual].msg_rsvp_error;
+        btn.innerText = traducciones[idiomaActual].rsvp_btn;
         btn.disabled = false;
     });
 });

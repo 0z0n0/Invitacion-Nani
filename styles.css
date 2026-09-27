@@ -5,7 +5,7 @@
     /* F-02: roles de color bien definidos */
     --dusty-rose: #c9807a;           /* titulación — más rico y legible   */
     --golden-deco: #e8b730;          /* decoración únicamente (marco)     */
-    --golden-cta:  #c8860a;          /* botones + interacción             */
+    --golden-cta:  #f0b74d;          /* botones + interacción             */
     --golden: #c8860a;               /* alias para compatibilidad         */
     --bg: #dacabb;
     /* F-01: texto con ratio WCAG AA sobre --bg */
@@ -54,16 +54,76 @@ h3 {
 }
 
 /* ==========================================================================
+   SWITCH DE IDIOMA
+   ========================================================================== */
+.lang-switch-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 1rem 0 0.5rem;
+}
+
+.lang-btn {
+    background: none;
+    border: 1px solid var(--golden-deco);
+    color: var(--text);
+    font-family: var(--font-titulos);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    padding: 0.3rem 0.75rem;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.lang-btn:hover {
+    background: var(--golden-deco);
+    color: #fff;
+}
+
+.lang-btn.lang-active {
+    background: var(--golden-deco);
+    color: #fff;
+    cursor: default;
+}
+
+.lang-divider {
+    color: var(--golden-deco);
+    font-size: 0.9rem;
+    line-height: 1;
+}
+
+/* ==========================================================================
+   INTRO SCREEN (video de apertura)
+   ========================================================================== */
+#intro-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #000;
+    transition: opacity 0.8s ease;
+}
+
+#intro-screen.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#intro-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ==========================================================================
    HERO SECTION (Portada)
    ========================================================================== */
 .hero-section {
     position: relative;
     width: 100%;
-    height: 100vh; /* Ocupa toda la pantalla del celu */
-    /* 
-       AQUI VA LA FOTO DE LA CUMPLEAÑERA 
-       Reemplaza 'ruta/a/tu/imagen.jpg' con la imagen real.
-    */
+    height: 100vh;
     background-image: url('asset/1.jpg');
     background-size: cover;
     background-position: center;
@@ -89,6 +149,7 @@ h3 {
     align-items: center;
     justify-content: flex-end; /* contenido al pie */
     padding-bottom: 2.5rem;
+    z-index: 1;
 }
 
 .hero-content {

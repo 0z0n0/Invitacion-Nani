@@ -12,6 +12,13 @@
 </head>
 <body>
 
+    <!-- PANTALLA DE INTRO (video de apertura) -->
+    <div id="intro-screen">
+        <video id="intro-video" autoplay muted playsinline>
+            <source src="asset/First-person_perspective_cinematic_shot._A_mysterious_ancient_forest_at_twilight_with_thick_mossy_tr_seed3259987025.mp4" type="video/mp4">
+        </video>
+    </div>
+
     <!-- PORTADA (Hero) -->
     <header class="hero-section">
         <div class="hero-overlay">
@@ -26,34 +33,41 @@
     <!-- MARCO: envuelve todo el contenido post-hero -->
     <div class="marco-contenedor">
 
+    <!-- SWITCH DE IDIOMA -->
+    <div class="lang-switch-wrapper">
+        <button id="lang-es" class="lang-btn lang-active" aria-label="Español">ES</button>
+        <span class="lang-divider">|</span>
+        <button id="lang-pt" class="lang-btn" aria-label="Português">PT</button>
+    </div>
+
     <!-- CUENTA REGRESIVA -->
     <section class="countdown-section">
-        <h3>Falta muy poco...</h3>
+        <h3 data-i18n="countdown_title">Falta muy poco...</h3>
         <div id="reloj" class="reloj-container">
-            <div class="tiempo"><span id="dias">00</span><p>Días</p></div>
-            <div class="tiempo"><span id="horas">00</span><p>Hs</p></div>
-            <div class="tiempo"><span id="minutos">00</span><p>Min</p></div>
-            <div class="tiempo"><span id="segundos">00</span><p>Seg</p></div>
+            <div class="tiempo"><span id="dias">00</span><p data-i18n="dias">Días</p></div>
+            <div class="tiempo"><span id="horas">00</span><p data-i18n="horas">Hs</p></div>
+            <div class="tiempo"><span id="minutos">00</span><p data-i18n="minutos">Min</p></div>
+            <div class="tiempo"><span id="segundos">00</span><p data-i18n="segundos">Seg</p></div>
         </div>
     </section>
 
     <!-- FORMULARIO: RSVP (F-04: CTA principal arriba) -->
     <section class="form-section rsvp-container">
         <img src="asset/asistencia.gif" alt="Decoración Confirmar Asistencia" class="seccion-gif" aria-hidden="true">
-        <h3>Confirmar Asistencia</h3>
-        <p>Por favor, confirmá antes del 10/02/2027</p>
+        <h3 data-i18n="rsvp_title">Confirmar Asistencia</h3>
+        <p data-i18n="rsvp_deadline">Por favor, confirmá antes del 10/02/2027</p>
         <form id="form-rsvp">
-            <input type="text" id="rsvp-nombre" placeholder="Nombre y Apellido" required>
+            <input type="text" id="rsvp-nombre" data-i18n-placeholder="rsvp_nombre_ph" placeholder="Nombre y Apellido" required>
             
-            <label for="rsvp-asiste">¿Asistís?</label>
+            <label for="rsvp-asiste" data-i18n="rsvp_asiste_label">¿Asistís?</label>
             <select id="rsvp-asiste" required>
-                <option value="Sí">Sí, confirmo</option>
-                <option value="No">No podré asistir</option>
+                <option value="Sí" data-i18n="rsvp_si">Sí, confirmo</option>
+                <option value="No" data-i18n="rsvp_no">No podré asistir</option>
             </select>
 
-            <input type="text" id="rsvp-menu" placeholder="Menú especial (Celíaco, Vegano, etc.) o 'Ninguno'">
+            <input type="text" id="rsvp-menu" data-i18n-placeholder="rsvp_menu_ph" placeholder="Menú especial (Celíaco, Vegano, etc.) o 'Ninguno'">
             
-            <button type="submit" id="btn-rsvp" class="btn-primario">Confirmar</button>
+            <button type="submit" id="btn-rsvp" class="btn-primario" data-i18n="rsvp_btn">Confirmar</button>
         </form>
         <p id="msg-rsvp" class="mensaje-form"></p>
     </section>
@@ -61,47 +75,46 @@
     <!-- UBICACIÓN Y FIESTA -->
     <section class="info-section">
         <img src="asset/la-fiesta.gif" alt="Decoración La Fiesta" class="seccion-gif" aria-hidden="true">
-        <h3>La Fiesta</h3>
-        <p><strong>Fecha:</strong> Sábado 10 de Abril de 2027</p>
-        <p><strong>Horario:</strong> 21:00 hs a 04:00 hs</p>
-        <p><strong>Lugar:</strong> El Campito del Abuelo, Ibarlucea, Santa Fe</p>
-        <a href="https://maps.app.goo.gl/5xK7oFv8d6gdrRo78" target="_blank" class="btn-primario">Ver en Google Maps</a>
+        <h3 data-i18n="fiesta_title">La Fiesta</h3>
+        <p><strong data-i18n="fiesta_fecha_label">Fecha:</strong> <span data-i18n="fiesta_fecha_val">Sábado 10 de Abril de 2027</span></p>
+        <p><strong data-i18n="fiesta_hora_label">Horario:</strong> <span data-i18n="fiesta_hora_val">21:00 a 04:00 hs.</span></p>
+        <p><strong data-i18n="fiesta_lugar_label">Lugar:</strong> <span data-i18n="fiesta_lugar_val">El Campito del Abuelo, Ibarlucea, Santa Fe</span></p>
+        <a href="https://maps.app.goo.gl/5xK7oFv8d6gdrRo78" target="_blank" class="btn-primario" data-i18n="fiesta_mapa">Ver en Google Maps</a>
     </section>
 
     <!-- DETALLES DEL EVENTO -->
     <section class="detalles-section">
         <div class="detalle-card">
             <img src="asset/dress-code.gif" alt="Decoración Dress Code" class="seccion-gif" aria-hidden="true">
-            <h4>Dress Code</h4>
-            <p>Ellas: Vestido.</p>
-            <p>Ellos: Camisa y pantalón.</p>
-            <p><small>Colores Prohibidos: Bordo, Rosa, Dorado.</small></p>
+            <h4 data-i18n="dress_title">Dress Code</h4>
+            <p data-i18n="dress_ellas">Ellas: Vestido.</p>
+            <p data-i18n="dress_ellos">Ellos: Camisa y pantalón.</p>
+            <p><small data-i18n="dress_prohibidos">Colores Prohibidos: Bordo, Rosa, Dorado.</small></p>
         </div>
         <div class="detalle-card">
             <img src="asset/regalos.gif" alt="Decoración Regalos" class="seccion-gif" aria-hidden="true">
-            <h4>Regalos</h4>
-            <p>Tu presencia es mi mejor regalo, pero si deseas colaborar:</p>
-            <p><strong>CBU:</strong> 0000000000000000000000</p>
-            <p><strong>Alias:</strong> nai.mis15</p>
+            <h4 data-i18n="regalos_title">Regalos</h4>
+            <p data-i18n="regalos_texto">Tu presencia es mi mejor regalo, pero si deseas colaborar:</p>
+            <p><strong>Alias:</strong> nanizs.mis15</p>
         </div>
     </section>
 
     <!-- FORMULARIO: SUGERIR CANCIÓN -->
     <section class="form-section">
         <img src="asset/musica.gif" alt="Decoración Música" class="seccion-gif" aria-hidden="true">
-        <h3>Música</h3>
-        <p>¿Qué canción no puede faltar?</p>
+        <h3 data-i18n="musica_title">Música</h3>
+        <p data-i18n="musica_texto">¿Qué canción no puede faltar?</p>
         <form id="form-canciones">
-            <input type="text" id="cancion-nombre" placeholder="Tu Nombre" required>
-            <input type="text" id="cancion-tema" placeholder="Canción y Artista" required>
-            <button type="submit" class="btn-primario">Sugerir Canción</button>
+            <input type="text" id="cancion-nombre" data-i18n-placeholder="musica_nombre_ph" placeholder="Tu Nombre" required>
+            <input type="text" id="cancion-tema" data-i18n-placeholder="musica_tema_ph" placeholder="Canción y Artista" required>
+            <button type="submit" class="btn-primario" data-i18n="musica_btn">Sugerir Canción</button>
         </form>
         <p id="msg-canciones" class="mensaje-form"></p>
     </section>
 
     <!-- CARRUSEL DE FOTOS -->
     <section class="carrusel-section">
-        <h3>Momentos</h3>
+        <h3 data-i18n="momentos_title">Momentos</h3>
         <div class="carrusel-wrapper">
             <button class="carrusel-btn carrusel-prev" aria-label="Anterior">&#8249;</button>
             <div class="carrusel-track-container">
@@ -126,7 +139,7 @@
 
     <!-- FOOTER -->
     <footer>
-        <p>¡Te espero para celebrar juntos!</p>
+        <p data-i18n="footer_texto">¡Te espero para celebrar juntos!</p>
     </footer>
 
     </div><!-- fin .marco-contenedor -->
