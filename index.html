@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis 15 | Nani</title>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="asset/1.jpg">
+
+    <!-- Open Graph (preview en WhatsApp / redes) -->
+    <meta property="og:title"       content="Mis 15 — Nani 🌿">
+    <meta property="og:description" content="¡Estás invitado/a a mis 15! Sábado 10 de Abril de 2027 · El Campito del Abuelo, Ibarlucea">
+    <meta property="og:image"       content="asset/1.jpg">
+    <meta property="og:type"        content="website">
+    <meta name="twitter:card"       content="summary_large_image">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
@@ -15,8 +25,9 @@
     <!-- PANTALLA DE INTRO (video de apertura) -->
     <div id="intro-screen">
         <video id="intro-video" autoplay muted playsinline>
-            <source src="asset/First-person_perspective_cinematic_shot._A_mysterious_ancient_forest_at_twilight_with_thick_mossy_tr_seed3259987025.mp4" type="video/mp4">
+            <source src="asset/intro.mp4" type="video/mp4">
         </video>
+        <button id="btn-saltar-intro" aria-label="Saltar introducción">Saltar intro</button>
     </div>
 
     <!-- PORTADA (Hero) -->
@@ -53,11 +64,11 @@
 
     <!-- FORMULARIO: RSVP (F-04: CTA principal arriba) -->
     <section class="form-section rsvp-container">
-        <img src="asset/asistencia.gif" alt="Decoración Confirmar Asistencia" class="seccion-gif" aria-hidden="true">
+        <img src="asset/asistencia.webp" alt="Decoración Confirmar Asistencia" class="seccion-gif" aria-hidden="true">
         <h3 data-i18n="rsvp_title">Confirmar Asistencia</h3>
         <p data-i18n="rsvp_deadline">Por favor, confirmá antes del 10/02/2027</p>
         <form id="form-rsvp">
-            <input type="text" id="rsvp-nombre" data-i18n-placeholder="rsvp_nombre_ph" placeholder="Nombre y Apellido" required>
+            <input type="text" id="rsvp-nombre" data-i18n-placeholder="rsvp_nombre_ph" placeholder="Nombre y Apellido" maxlength="100" autocomplete="name" required>
             
             <label for="rsvp-asiste" data-i18n="rsvp_asiste_label">¿Asistís?</label>
             <select id="rsvp-asiste" required>
@@ -65,7 +76,7 @@
                 <option value="No" data-i18n="rsvp_no">No podré asistir</option>
             </select>
 
-            <input type="text" id="rsvp-menu" data-i18n-placeholder="rsvp_menu_ph" placeholder="Menú especial (Celíaco, Vegano, etc.) o 'Ninguno'">
+            <input type="text" id="rsvp-menu" data-i18n-placeholder="rsvp_menu_ph" placeholder="Menú especial (Celíaco, Vegano, etc.) o 'Ninguno'" maxlength="150">
             
             <button type="submit" id="btn-rsvp" class="btn-primario" data-i18n="rsvp_btn">Confirmar</button>
         </form>
@@ -74,25 +85,25 @@
 
     <!-- UBICACIÓN Y FIESTA -->
     <section class="info-section">
-        <img src="asset/la-fiesta.gif" alt="Decoración La Fiesta" class="seccion-gif" aria-hidden="true">
+        <img src="asset/la-fiesta.webp" alt="Decoración La Fiesta" class="seccion-gif" aria-hidden="true">
         <h3 data-i18n="fiesta_title">La Fiesta</h3>
         <p><strong data-i18n="fiesta_fecha_label">Fecha:</strong> <span data-i18n="fiesta_fecha_val">Sábado 10 de Abril de 2027</span></p>
         <p><strong data-i18n="fiesta_hora_label">Horario:</strong> <span data-i18n="fiesta_hora_val">21:00 a 04:00 hs.</span></p>
         <p><strong data-i18n="fiesta_lugar_label">Lugar:</strong> <span data-i18n="fiesta_lugar_val">El Campito del Abuelo, Ibarlucea, Santa Fe</span></p>
-        <a href="https://maps.app.goo.gl/5xK7oFv8d6gdrRo78" target="_blank" class="btn-primario" data-i18n="fiesta_mapa">Ver en Google Maps</a>
+        <a href="https://maps.app.goo.gl/5xK7oFv8d6gdrRo78" target="_blank" rel="noopener noreferrer" class="btn-primario" data-i18n="fiesta_mapa">Ver en Google Maps</a>
     </section>
 
     <!-- DETALLES DEL EVENTO -->
     <section class="detalles-section">
         <div class="detalle-card">
-            <img src="asset/dress-code.gif" alt="Decoración Dress Code" class="seccion-gif" aria-hidden="true">
+            <img src="asset/dress-code.webp" alt="Decoración Dress Code" class="seccion-gif" aria-hidden="true">
             <h4 data-i18n="dress_title">Dress Code</h4>
             <p data-i18n="dress_ellas">Ellas: Vestido.</p>
             <p data-i18n="dress_ellos">Ellos: Camisa y pantalón.</p>
             <p><small data-i18n="dress_prohibidos">Colores Prohibidos: Bordo, Rosa, Dorado.</small></p>
         </div>
         <div class="detalle-card">
-            <img src="asset/regalos.gif" alt="Decoración Regalos" class="seccion-gif" aria-hidden="true">
+            <img src="asset/regalos.webp" alt="Decoración Regalos" class="seccion-gif" aria-hidden="true">
             <h4 data-i18n="regalos_title">Regalos</h4>
             <p data-i18n="regalos_texto">Tu presencia es mi mejor regalo, pero si deseas colaborar:</p>
             <p><strong>Alias:</strong> nanizs.mis15</p>
@@ -101,12 +112,12 @@
 
     <!-- FORMULARIO: SUGERIR CANCIÓN -->
     <section class="form-section">
-        <img src="asset/musica.gif" alt="Decoración Música" class="seccion-gif" aria-hidden="true">
+        <img src="asset/musica.webp" alt="Decoración Música" class="seccion-gif" aria-hidden="true">
         <h3 data-i18n="musica_title">Música</h3>
         <p data-i18n="musica_texto">¿Qué canción no puede faltar?</p>
         <form id="form-canciones">
-            <input type="text" id="cancion-nombre" data-i18n-placeholder="musica_nombre_ph" placeholder="Tu Nombre" required>
-            <input type="text" id="cancion-tema" data-i18n-placeholder="musica_tema_ph" placeholder="Canción y Artista" required>
+            <input type="text" id="cancion-nombre" data-i18n-placeholder="musica_nombre_ph" placeholder="Tu Nombre" maxlength="100" autocomplete="name" required>
+            <input type="text" id="cancion-tema" data-i18n-placeholder="musica_tema_ph" placeholder="Canción y Artista" maxlength="150" required>
             <button type="submit" class="btn-primario" data-i18n="musica_btn">Sugerir Canción</button>
         </form>
         <p id="msg-canciones" class="mensaje-form"></p>
@@ -119,17 +130,18 @@
             <button class="carrusel-btn carrusel-prev" aria-label="Anterior">&#8249;</button>
             <div class="carrusel-track-container">
                 <div class="carrusel-track" id="carrusel-track">
-                    <div class="carrusel-slide"><img src="asset/weader.jpg" alt="Foto 1"></div>
-                    <div class="carrusel-slide"><img src="asset/2.jpg" alt="Foto 2"></div>
-                    <div class="carrusel-slide"><img src="asset/3.jpg" alt="Foto 3"></div>
-                    <div class="carrusel-slide"><img src="asset/4.jpg" alt="Foto 4"></div>
-                    <div class="carrusel-slide"><img src="asset/5.jpg" alt="Foto 5"></div>
-                    <div class="carrusel-slide"><img src="asset/6.jpg" alt="Foto 6"></div>
-                    <div class="carrusel-slide"><img src="asset/7.jpg" alt="Foto 7"></div>
-                    <div class="carrusel-slide"><img src="asset/8.jpg" alt="Foto 8"></div>
-                    <div class="carrusel-slide"><img src="asset/9.jpg" alt="Foto 9"></div>
-                    <div class="carrusel-slide"><img src="asset/11.jpg" alt="Foto 11"></div>
-                    <div class="carrusel-slide"><img src="asset/12.jpg" alt="Foto 12"></div>
+                    <div class="carrusel-slide"><img src="asset/weader.jpg" alt="Momento especial de Nani"></div>
+                    <div class="carrusel-slide"><img src="asset/2.jpg"      alt="Momento 2 de Nani" loading="lazy"></div>
+                    <div class="carrusel-slide"><img src="asset/3.jpg"      alt="Momento 3 de Nani" loading="lazy"></div>
+                    <div class="carrusel-slide"><img src="asset/4.jpg"      alt="Momento 4 de Nani" loading="lazy"></div>
+                    <div class="carrusel-slide"><img src="asset/5.jpg"      alt="Momento 5 de Nani" loading="lazy"></div>
+                    <div class="carrusel-slide"><img src="asset/6.jpg"      alt="Momento 6 de Nani" loading="lazy"></div>
+                    <div class="carrusel-slide"><img src="asset/7.jpg"      alt="Momento 7 de Nani" loading="lazy"></div>
+                    <div class="carrusel-slide"><img src="asset/8.jpg"      alt="Momento 8 de Nani" loading="lazy"></div>
+                    <div class="carrusel-slide"><img src="asset/9.jpg"      alt="Momento 9 de Nani" loading="lazy"></div>
+                    <div class="carrusel-slide"><img src="asset/10.jpg"     alt="Momento 10 de Nani" loading="lazy"></div>
+                    <div class="carrusel-slide"><img src="asset/11.jpg"     alt="Momento 11 de Nani" loading="lazy"></div>
+                    <div class="carrusel-slide"><img src="asset/12.jpg"     alt="Momento 12 de Nani" loading="lazy"></div>
                 </div>
             </div>
             <button class="carrusel-btn carrusel-next" aria-label="Siguiente">&#8250;</button>

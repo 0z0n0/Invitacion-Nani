@@ -4,25 +4,42 @@
 (function () {
     const introScreen = document.getElementById('intro-screen');
     const introVideo  = document.getElementById('intro-video');
+    const btnSaltar   = document.getElementById('btn-saltar-intro');
 
     if (!introScreen || !introVideo) return;
+
+    // Si ya se vio en esta sesión, saltar directo
+    if (sessionStorage.getItem('intro_vista')) {
+        introScreen.remove();
+        return;
+    }
 
     // Bloquear scroll mientras dura la intro
     document.body.style.overflow = 'hidden';
 
+    var introTerminada = false;
     function terminarIntro() {
+        if (introTerminada) return;
+        introTerminada = true;
+        sessionStorage.setItem('intro_vista', '1');
         introScreen.classList.add('fade-out');
         document.body.style.overflow = '';
-        // Eliminar el nodo del DOM al terminar el fade
         introScreen.addEventListener('transitionend', function () {
             introScreen.remove();
         }, { once: true });
     }
 
+    // Mostrar botón "Saltar" a los 3 segundos
+    setTimeout(function () {
+        if (btnSaltar) btnSaltar.classList.add('visible');
+    }, 3000);
+
+    if (btnSaltar) btnSaltar.addEventListener('click', terminarIntro);
+
     // Caso 1: el video termina normalmente
     introVideo.addEventListener('ended', terminarIntro);
 
-    // Caso 2: el video no pudo cargarse / reproducirse (fallback: 8 s)
+    // Caso 2: el video no pudo cargarse / reproducirse
     introVideo.addEventListener('error', function () {
         setTimeout(terminarIntro, 500);
     });
@@ -176,32 +193,46 @@ const fechaEvento = new Date("April 10, 2027 21:00:00").getTime();
 const fechaLimiteRSVP = new Date("February 10, 2027 23:59:59").getTime();
 
 // ==========================================================================
-// 1. LÓGICA DE LA CUENTA REGRESIVA
+// 2. LÓGICA DE LA CUENTA REGRESIVA (con pausa en segundo plano)
 // ==========================================================================
-const actualizarReloj = setInterval(function() {
+var relojTimer = null;
+
+function tickReloj() {
     const ahora = new Date().getTime();
     const distancia = fechaEvento - ahora;
 
     if (distancia < 0) {
-        clearInterval(actualizarReloj);
+        clearInterval(relojTimer);
         document.getElementById("reloj").innerHTML = "¡Llegó el día!";
         return;
     }
 
-    const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
-    const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const dias    = Math.floor(distancia / (1000 * 60 * 60 * 24));
+    const horas   = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
-    const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+    const segundos= Math.floor((distancia % (1000 * 60)) / 1000);
 
-    // Añadir ceros a la izquierda si es menor a 10
-    document.getElementById("dias").innerText = dias.toString().padStart(2, '0');
-    document.getElementById("horas").innerText = horas.toString().padStart(2, '0');
-    document.getElementById("minutos").innerText = minutos.toString().padStart(2, '0');
+    document.getElementById("dias").innerText     = dias.toString().padStart(2, '0');
+    document.getElementById("horas").innerText    = horas.toString().padStart(2, '0');
+    document.getElementById("minutos").innerText  = minutos.toString().padStart(2, '0');
     document.getElementById("segundos").innerText = segundos.toString().padStart(2, '0');
-}, 1000);
+}
+
+relojTimer = setInterval(tickReloj, 1000);
+tickReloj(); // disparo inmediato para no esperar 1 s
+
+// Pausar cuando la pestaña no está visible → reanudar al volver
+document.addEventListener('visibilitychange', function () {
+    if (document.hidden) {
+        clearInterval(relojTimer);
+    } else {
+        tickReloj();
+        relojTimer = setInterval(tickReloj, 1000);
+    }
+});
 
 // ==========================================================================
-// 2. VALIDACIÓN DE FECHA LÍMITE RSVP
+// 3. VALIDACIÓN DE FECHA LÍMITE RSVP
 // ==========================================================================
 function chequearFechaLimite() {
     const ahora = new Date().getTime();
@@ -215,87 +246,95 @@ function chequearFechaLimite() {
         inputs.forEach(input => input.disabled = true);
     }
 }
+
+// Anti-duplicado: si ya confirmó en este dispositivo, mostrar mensaje directo
+(function () {
+    if (localStorage.getItem('rsvp_confirmado')) {
+        const form = document.getElementById('form-rsvp');
+        const msg  = document.getElementById('msg-rsvp');
+        if (form && msg) {
+            form.style.display = 'none';
+            msg.style.color    = '#80EF80';
+            msg.innerText      = traducciones[idiomaActual].msg_rsvp_ok;
+        }
+    }
+})();
+
 chequearFechaLimite();
 
 // ==========================================================================
-// 3. ENVÍO DE FORMULARIOS A GOOGLE SHEETS
+// 4. ENVÍO DE FORMULARIOS A GOOGLE SHEETS
 // ==========================================================================
+
+const CONTACTO_FALLBACK = 'WhatsApp: +54 9 341 268 6221';
 
 // Enviar sugerencia de canción
 document.getElementById('form-canciones').addEventListener('submit', function(e) {
-    e.preventDefault(); // Evita que la página se recargue
-    
-    const btn = e.target.querySelector('button');
-    const msg = document.getElementById('msg-canciones');
+    e.preventDefault();
+
+    const btn    = e.target.querySelector('button');
+    const msg    = document.getElementById('msg-canciones');
     const nombre = document.getElementById('cancion-nombre').value;
-    const cancion = document.getElementById('cancion-tema').value;
+    const cancion= document.getElementById('cancion-tema').value;
 
     btn.innerText = traducciones[idiomaActual].btn_enviando;
-    btn.disabled = true;
-
-    const data = {
-        formType: 'canciones',
-        nombre: nombre,
-        cancion: cancion
-    };
+    btn.disabled  = true;
 
     fetch(API_URL, {
         method: 'POST',
-        body: JSON.stringify(data)
+        body: JSON.stringify({ formType: 'canciones', nombre, cancion })
     })
     .then(response => response.json())
-    .then(data => {
+    .then(() => {
         msg.style.color = '#80EF80';
-        msg.innerText = traducciones[idiomaActual].msg_cancion_ok;
+        msg.innerText   = traducciones[idiomaActual].msg_cancion_ok;
+        msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
         e.target.reset();
         btn.innerText = traducciones[idiomaActual].btn_sugerir_otra;
-        btn.disabled = false;
+        btn.disabled  = false;
     })
-    .catch(error => {
+    .catch(() => {
         msg.style.color = '#DCA1A1';
-        msg.innerText = traducciones[idiomaActual].msg_cancion_error;
+        msg.innerText   = traducciones[idiomaActual].msg_cancion_error + ' · ' + CONTACTO_FALLBACK;
+        msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
         btn.innerText = traducciones[idiomaActual].musica_btn;
-        btn.disabled = false;
+        btn.disabled  = false;
     });
 });
 
 // Enviar confirmación de asistencia (RSVP)
 document.getElementById('form-rsvp').addEventListener('submit', function(e) {
     e.preventDefault();
-    
-    const btn = document.getElementById('btn-rsvp');
-    const msg = document.getElementById('msg-rsvp');
+
+    const btn    = document.getElementById('btn-rsvp');
+    const msg    = document.getElementById('msg-rsvp');
     const nombre = document.getElementById('rsvp-nombre').value;
     const asiste = document.getElementById('rsvp-asiste').value;
-    const menu = document.getElementById('rsvp-menu').value || 'Ninguno';
+    const menu   = document.getElementById('rsvp-menu').value || 'Ninguno';
 
     btn.innerText = traducciones[idiomaActual].btn_confirmando;
-    btn.disabled = true;
-
-    const data = {
-        formType: 'rsvp',
-        nombre: nombre,
-        asiste: asiste,
-        menu: menu
-    };
+    btn.disabled  = true;
 
     fetch(API_URL, {
         method: 'POST',
-        body: JSON.stringify(data)
+        body: JSON.stringify({ formType: 'rsvp', nombre, asiste, menu })
     })
     .then(response => response.json())
-    .then(data => {
+    .then(() => {
+        localStorage.setItem('rsvp_confirmado', '1');
         msg.style.color = '#80EF80';
-        msg.innerText = traducciones[idiomaActual].msg_rsvp_ok;
+        msg.innerText   = traducciones[idiomaActual].msg_rsvp_ok;
+        msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
         e.target.reset();
+        e.target.style.display = 'none';   // ocultar el form tras éxito
         btn.innerText = traducciones[idiomaActual].btn_confirmado;
-        // Lo dejamos deshabilitado para evitar envíos duplicados por error
     })
-    .catch(error => {
+    .catch(() => {
         msg.style.color = '#DCA1A1';
-        msg.innerText = traducciones[idiomaActual].msg_rsvp_error;
+        msg.innerText   = traducciones[idiomaActual].msg_rsvp_error + ' · ' + CONTACTO_FALLBACK;
+        msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
         btn.innerText = traducciones[idiomaActual].rsvp_btn;
-        btn.disabled = false;
+        btn.disabled  = false;
     });
 });
 

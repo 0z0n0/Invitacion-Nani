@@ -1,0 +1,389 @@
+
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Auditoría – Invitación 15 de Nani</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #1f2328;
+    background: #ffffff;
+    padding: 2rem 1rem 3rem;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+
+  h1 { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .subtitle { color: #57606a; font-size: 0.875rem; margin-bottom: 2rem; }
+
+  /* Score band */
+  .scores {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+  .score-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    background: #f7f8fa;
+    text-align: center;
+  }
+  .score-card .label { font-size: 0.75rem; color: #57606a; text-transform: uppercase; letter-spacing: 0.05em; }
+  .score-card .value { font-size: 1.6rem; font-weight: 700; margin: 0.2rem 0 0; }
+  .green  { color: #1a7f37; }
+  .yellow { color: #9a6700; }
+  .red    { color: #cf222e; }
+
+  /* Sections */
+  .section { margin-bottom: 2rem; }
+  .section-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #57606a;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 0.35rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Finding cards */
+  .finding {
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 0.85rem 1rem;
+    margin-bottom: 0.6rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.6rem 0.85rem;
+    align-items: start;
+  }
+  .badge {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    white-space: nowrap;
+    margin-top: 0.15rem;
+  }
+  .badge-alta    { background: #ffeef0; color: #cf222e; border: 1px solid #f5c6cb; }
+  .badge-media   { background: #fff8c5; color: #9a6700; border: 1px solid #f0d060; }
+  .badge-baja    { background: #dafbe1; color: #1a7f37; border: 1px solid #a7f3b0; }
+  .badge-info    { background: #ddf4ff; color: #0550ae; border: 1px solid #96cff5; }
+
+  .finding-body h4 { font-size: 0.875rem; font-weight: 600; margin-bottom: 0.2rem; }
+  .finding-body p  { font-size: 0.82rem; color: #1f2328; margin-bottom: 0.3rem; }
+  .finding-body code {
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 0.78rem;
+    background: #f0f2f4;
+    padding: 0.1rem 0.35rem;
+    border-radius: 3px;
+  }
+  .fix {
+    font-size: 0.8rem;
+    color: #57606a;
+    background: #f7f8fa;
+    border-left: 3px solid #3b82d4;
+    padding: 0.4rem 0.65rem;
+    border-radius: 0 3px 3px 0;
+    margin-top: 0.4rem;
+  }
+  .fix strong { color: #0550ae; }
+
+  /* Checklist */
+  .checklist { list-style: none; }
+  .checklist li {
+    padding: 0.4rem 0;
+    border-bottom: 1px solid #f0f2f4;
+    font-size: 0.82rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .icon-ok   { color: #1a7f37; font-weight: 700; flex-shrink: 0; }
+  .icon-warn { color: #9a6700; font-weight: 700; flex-shrink: 0; }
+  .icon-bad  { color: #cf222e; font-weight: 700; flex-shrink: 0; }
+
+  footer {
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #57606a;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Auditoría Técnica — Invitación 15 años de Nani</h1>
+  <p class="subtitle">Revisión de <code>index.html</code> · <code>styles.css</code> · <code>script.js</code> · carpeta <code>asset/</code></p>
+
+  
+  <div class="scores">
+    <div class="score-card">
+      <div class="label">Rendimiento</div>
+      <div class="value yellow">6/10</div>
+    </div>
+    <div class="score-card">
+      <div class="label">Buenas prácticas</div>
+      <div class="value yellow">7/10</div>
+    </div>
+    <div class="score-card">
+      <div class="label">Seguridad</div>
+      <div class="value red">5/10</div>
+    </div>
+    <div class="score-card">
+      <div class="label">Accesibilidad</div>
+      <div class="value yellow">6/10</div>
+    </div>
+    <div class="score-card">
+      <div class="label">Contingencia</div>
+      <div class="value red">4/10</div>
+    </div>
+  </div>
+
+  
+  <div class="section">
+    <div class="section-title">🚀 Rendimiento y fluidez</div>
+
+    <div class="finding">
+      <span class="badge badge-alta">ALTA</span>
+      <div class="finding-body">
+        <h4>Video de intro sin compresión ni formato moderno</h4>
+        <p>El archivo MP4 tiene un nombre de 100+ caracteres y probablemente supera los 20–50 MB. Es el mayor cuello de botella de carga en móviles con datos móviles.</p>
+        <div class="fix"><strong>Acción:</strong> Comprimir con HandBrake o FFmpeg a H.264 CRF 28, resolución máx. 1080p. Renombrar a algo corto como <code>asset/intro.mp4</code>. Target: ≤ 8 MB. Opcionalmente ofrecer WebM como fuente primaria (mejor compresión en Chrome/Android).</div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge badge-alta">ALTA</span>
+      <div class="finding-body">
+        <h4>Imágenes del carrusel sin optimizar</h4>
+        <p>11 JPGs cargados todos a la vez (<code>weader.jpg</code>, <code>2.jpg</code>…<code>12.jpg</code>) sin lazy loading. En conexiones lentas bloquean el renderizado.</p>
+        <div class="fix"><strong>Acción:</strong> Agregar <code>loading="lazy"</code> a cada <code>&lt;img&gt;</code> del carrusel. Convertir las imágenes a WebP (50–70% menos peso). La foto <code>10.jpg</code> existe en disco pero no está en el carrusel — revisar si falta.</div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge badge-media">MEDIA</span>
+      <div class="finding-body">
+        <h4>Google Fonts bloquea el render inicial</h4>
+        <p>Las fuentes Cinzel y Montserrat se cargan de forma sincrónica. Hasta que no se resuelven, el texto puede mostrarse en blanco (FOIT).</p>
+        <div class="fix"><strong>Acción:</strong> Agregar <code>font-display=swap</code> a la URL de Google Fonts: <code>&amp;display=swap</code> ya está presente ✔. Mejorar: precargar las fuentes críticas con <code>&lt;link rel="preload"&gt;</code>.</div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge badge-media">MEDIA</span>
+      <div class="finding-body">
+        <h4>GIFs decorativos sin restricción de tamaño</h4>
+        <p>5 GIFs (<code>asistencia.gif</code>, <code>la-fiesta.gif</code>, etc.) pueden ser archivos pesados. Los GIFs no tienen compresión eficiente.</p>
+        <div class="fix"><strong>Acción:</strong> Convertir a WebP animado o video MP4 corto con <code>autoplay loop muted playsinline</code>. Un GIF de 2 MB se puede reducir a 200 KB en WebP animado.</div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge badge-baja">BAJA</span>
+      <div class="finding-body">
+        <h4>setInterval de 1 segundo corriendo siempre</h4>
+        <p>El countdown usa <code>setInterval</code> cada 1000ms. Si la pestaña queda en segundo plano, los navegadores throttlean el timer pero no lo pausan.</p>
+        <div class="fix"><strong>Acción:</strong> Usar <code>document.addEventListener('visibilitychange', ...)</code> para pausar cuando la pestaña está oculta y reanudar al volver. Impacto mínimo en batería de celular.</div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="section">
+    <div class="section-title">🔒 Seguridad</div>
+
+    <div class="finding">
+      <span class="badge badge-alta">ALTA</span>
+      <div class="finding-body">
+        <h4>API URL de Google Apps Script expuesta en el JS público</h4>
+        <p>La URL completa del script está hardcodeada en <code>script.js</code> línea 171 y visible en el repositorio de GitHub. Cualquier persona puede hacer POST masivos a tu hoja de Google Sheets (spam de RSVPs / canciones).</p>
+        <div class="fix"><strong>Acción inmediata:</strong> En el Google Apps Script, agregar validación del <code>origen</code> o un token secreto en el body. A nivel corto plazo: agregar rate limiting en el script de Google (contar envíos por IP/día). No hay forma de ocultar la URL en un sitio estático, por lo que la defensa debe estar en el servidor (Google Apps Script).</div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge badge-alta">ALTA</span>
+      <div class="finding-body">
+        <h4>Sin validación de longitud en los inputs</h4>
+        <p>Los campos de nombre, canción y menú no tienen <code>maxlength</code>. Un usuario puede enviar 10.000 caracteres, lo que puede romper la hoja de cálculo o generar costos.</p>
+        <div class="fix"><strong>Acción:</strong> Agregar <code>maxlength="100"</code> (nombre) y <code>maxlength="150"</code> (canción/menú) en el HTML. También validarlo en el Google Apps Script antes de escribir a la hoja.</div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge badge-media">MEDIA</span>
+      <div class="finding-body">
+        <h4>Link de Google Maps abre con <code>target="_blank"</code> sin <code>rel</code></h4>
+        <p>Un enlace externo con <code>target="_blank"</code> sin <code>rel="noopener noreferrer"</code> permite que la pestaña destino acceda al objeto <code>window.opener</code> (tabnapping).</p>
+        <div class="fix"><strong>Acción:</strong> Cambiar a <code>&lt;a href="..." target="_blank" rel="noopener noreferrer"&gt;</code>. Un cambio de 30 segundos.</div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge badge-media">MEDIA</span>
+      <div class="finding-body">
+        <h4>Sin Content Security Policy (CSP)</h4>
+        <p>El sitio no declara ningún encabezado o meta CSP. Si se sirve desde GitHub Pages, se puede configurar parcialmente con una meta tag.</p>
+        <div class="fix"><strong>Acción:</strong> Agregar en el <code>&lt;head&gt;</code>: <code>&lt;meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src https://script.google.com; font-src https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com"&gt;</code></div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="section">
+    <div class="section-title">🛡️ Plan de Contingencia</div>
+
+    <div class="finding">
+      <span class="badge badge-alta">ALTA</span>
+      <div class="finding-body">
+        <h4>Sin fallback si Google Apps Script está caído</h4>
+        <p>Si el endpoint de Google falla (límite de cuota, mantenimiento), los formularios muestran error pero no hay alternativa para que el invitado confirme.</p>
+        <div class="fix"><strong>Acción:</strong> Mostrar en el mensaje de error un número de WhatsApp o email de contacto. Ej: "¿Problemas? Escribí al +54 XXX al 9 XXX". También guardar el intento fallido en <code>localStorage</code> y reintentar automáticamente una vez al volver a cargar la página.</div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge badge-alta">ALTA</span>
+      <div class="finding-body">
+        <h4>Sin confirmación visible después del envío del formulario</h4>
+        <p>El mensaje de éxito aparece en un <code>&lt;p&gt;</code> pequeño debajo del botón. En mobile puede quedar fuera del viewport. El usuario podría no verlo y volver a enviar.</p>
+        <div class="fix"><strong>Acción:</strong> Después del envío exitoso, hacer scroll suave hasta el mensaje (<code>msg.scrollIntoView({ behavior: 'smooth', block: 'center' })</code>) y ocultar/reemplazar el formulario completo con un mensaje grande de confirmación.</div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge badge-media">MEDIA</span>
+      <div class="finding-body">
+        <h4>El video de intro no tiene botón para saltar</h4>
+        <p>Si el video es largo o el usuario ya lo vio, no hay forma de saltarlo. En conexiones lentas el video puede tardar en cargar y el usuario ve una pantalla negra.</p>
+        <div class="fix"><strong>Acción:</strong> Agregar un botón "Saltar intro" (visible a los 3 segundos) que dispare <code>terminarIntro()</code>. Guardar en <code>sessionStorage</code> si ya se vio para no mostrarlo nuevamente en la misma sesión.</div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge badge-media">MEDIA</span>
+      <div class="finding-body">
+        <h4>Sin protección contra envíos duplicados (RSVP)</h4>
+        <p>El botón RSVP queda deshabilitado tras éxito, pero solo en esa sesión. Si el usuario recarga la página puede confirmar varias veces, generando duplicados en la hoja.</p>
+        <div class="fix"><strong>Acción:</strong> Al confirmar con éxito, guardar en <code>localStorage</code> un flag <code>rsvp_confirmado: true</code>. Al cargar la página, chequear ese flag y mostrar directamente el mensaje de confirmación si ya fue enviado.</div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="badge badge-baja">BAJA</span>
+      <div class="finding-body">
+        <h4>Sin meta og: / Twitter Card para compartir en redes</h4>
+        <p>Si alguien comparte el link por WhatsApp o Instagram, no se genera ninguna vista previa enriquecida (sin imagen, sin descripción).</p>
+        <div class="fix"><strong>Acción:</strong> Agregar en el <code>&lt;head&gt;</code>: <code>&lt;meta property="og:title"&gt;</code>, <code>&lt;meta property="og:description"&gt;</code>, <code>&lt;meta property="og:image"&gt;</code> apuntando a <code>asset/1.jpg</code>.</div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="section">
+    <div class="section-title">✅ Estado actual — Buenas prácticas</div>
+    <ul class="checklist">
+      <li><span class="icon-ok">✔</span> Mobile-first con media queries progresivas en CSS</li>
+      <li><span class="icon-ok">✔</span> Carrusel con soporte táctil (swipe) y loop infinito con clones</li>
+      <li><span class="icon-ok">✔</span> Fallbacks de 3 niveles para el video de intro (ended / error / timeout)</li>
+      <li><span class="icon-ok">✔</span> Sistema i18n desacoplado con <code>data-i18n</code> sin dependencias externas</li>
+      <li><span class="icon-ok">✔</span> Validación de fecha límite RSVP en el cliente</li>
+      <li><span class="icon-ok">✔</span> Variables CSS centralizadas en <code>:root</code></li>
+      <li><span class="icon-ok">✔</span> Scroll bloqueado durante el video de intro</li>
+      <li><span class="icon-warn">⚠</span> <code>alt</code> text en imágenes del carrusel es genérico ("Foto 1"…). Usar nombres descriptivos</li>
+      <li><span class="icon-warn">⚠</span> <code>input type="text"</code> para el campo de nombre — usar <code>type="text" autocomplete="name"</code></li>
+      <li><span class="icon-warn">⚠</span> La variable <code>idiomaActual</code> es global — puede colisionar si se agregan módulos futuros. Encapsular en el IIFE de i18n</li>
+      <li><span class="icon-warn">⚠</span> Numeración duplicada en <code>script.js</code>: hay dos secciones llamadas "1." (i18n y cuenta regresiva)</li>
+      <li><span class="icon-bad">✗</span> Archivo <code>asset/10.jpg</code> existe en disco pero no está incluido en el carrusel</li>
+      <li><span class="icon-bad">✗</span> Nombre del video MP4 tiene 100+ caracteres — renombrar a <code>intro.mp4</code></li>
+      <li><span class="icon-bad">✗</span> No hay <code>favicon</code> declarado en el <code>&lt;head&gt;</code></li>
+    </ul>
+  </div>
+
+  
+  <div class="section">
+    <div class="section-title">📋 Resumen de prioridades</div>
+    <table style="width:100%;border-collapse:collapse;font-size:0.82rem">
+      <thead>
+        <tr style="background:#f7f8fa;border-bottom:2px solid #e5e7eb">
+          <th style="text-align:left;padding:0.5rem 0.75rem">Acción</th>
+          <th style="text-align:center;padding:0.5rem 0.75rem">Prioridad</th>
+          <th style="text-align:center;padding:0.5rem 0.75rem">Esfuerzo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #e5e7eb">
+          <td style="padding:0.5rem 0.75rem">Comprimir video de intro a &lt;8 MB</td>
+          <td style="text-align:center"><span class="badge badge-alta">ALTA</span></td>
+          <td style="text-align:center;color:#57606a">Bajo</td>
+        </tr>
+        <tr style="border-bottom:1px solid #e5e7eb">
+          <td style="padding:0.5rem 0.75rem">Agregar <code>maxlength</code> a los inputs</td>
+          <td style="text-align:center"><span class="badge badge-alta">ALTA</span></td>
+          <td style="text-align:center;color:#57606a">Muy bajo</td>
+        </tr>
+        <tr style="border-bottom:1px solid #e5e7eb">
+          <td style="padding:0.5rem 0.75rem">Agregar <code>rel="noopener noreferrer"</code> al link de Maps</td>
+          <td style="text-align:center"><span class="badge badge-alta">ALTA</span></td>
+          <td style="text-align:center;color:#57606a">Muy bajo</td>
+        </tr>
+        <tr style="border-bottom:1px solid #e5e7eb">
+          <td style="padding:0.5rem 0.75rem">Lazy loading en imágenes del carrusel</td>
+          <td style="text-align:center"><span class="badge badge-alta">ALTA</span></td>
+          <td style="text-align:center;color:#57606a">Muy bajo</td>
+        </tr>
+        <tr style="border-bottom:1px solid #e5e7eb">
+          <td style="padding:0.5rem 0.75rem">Botón "Saltar intro" + sessionStorage</td>
+          <td style="text-align:center"><span class="badge badge-media">MEDIA</span></td>
+          <td style="text-align:center;color:#57606a">Bajo</td>
+        </tr>
+        <tr style="border-bottom:1px solid #e5e7eb">
+          <td style="padding:0.5rem 0.75rem">Anti-duplicado RSVP con localStorage</td>
+          <td style="text-align:center"><span class="badge badge-media">MEDIA</span></td>
+          <td style="text-align:center;color:#57606a">Bajo</td>
+        </tr>
+        <tr style="border-bottom:1px solid #e5e7eb">
+          <td style="padding:0.5rem 0.75rem">scrollIntoView al confirmar formulario</td>
+          <td style="text-align:center"><span class="badge badge-media">MEDIA</span></td>
+          <td style="text-align:center;color:#57606a">Muy bajo</td>
+        </tr>
+        <tr style="border-bottom:1px solid #e5e7eb">
+          <td style="padding:0.5rem 0.75rem">Meta og: para preview en WhatsApp</td>
+          <td style="text-align:center"><span class="badge badge-media">MEDIA</span></td>
+          <td style="text-align:center;color:#57606a">Muy bajo</td>
+        </tr>
+        <tr style="border-bottom:1px solid #e5e7eb">
+          <td style="padding:0.5rem 0.75rem">Validación + rate-limit en Google Apps Script</td>
+          <td style="text-align:center"><span class="badge badge-alta">ALTA</span></td>
+          <td style="text-align:center;color:#57606a">Medio</td>
+        </tr>
+        <tr>
+          <td style="padding:0.5rem 0.75rem">Convertir GIFs a WebP animado</td>
+          <td style="text-align:center"><span class="badge badge-baja">BAJA</span></td>
+          <td style="text-align:center;color:#57606a">Bajo</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+<footer>
+  <p>Made with IBM Bob</p>
+</footer>
+</body>
+</html>
