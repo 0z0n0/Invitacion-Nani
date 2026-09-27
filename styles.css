@@ -150,7 +150,7 @@ h3 {
     position: relative;
     width: 100%;
     height: 100vh;
-    background-image: url('asset/1.jpg');
+    background-image: url('asset/1.webp');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -310,9 +310,9 @@ section {
 .reloj-container {
     display: flex;
     justify-content: center;
-    gap: 0.6rem;
+    gap: 0.5rem;
     margin-top: 1.5rem;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;   /* siempre en una sola línea */
 }
 
 .tiempo {
@@ -320,21 +320,22 @@ section {
     flex-direction: column;
     align-items: center;
     background: rgba(255, 255, 255, 0.3);
-    padding: 1rem;
-    border-radius: 10px;
-    min-width: 70px;
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
+    flex: 1 1 0;         /* los 4 bloques reparten el espacio por igual */
+    max-width: 80px;
     border: 1px solid rgba(110, 119, 83, 0.25);
 }
 
 .tiempo span {
     font-family: var(--font-titulos);
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     color: var(--text);
     font-weight: 700;
 }
 
 .tiempo p {
-    font-size: 0.8rem;
+    font-size: 0.65rem;
     color: var(--dusty-rose);
     text-transform: uppercase;
     letter-spacing: 1px;
